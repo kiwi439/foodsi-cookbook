@@ -33,17 +33,19 @@ bundle exec rspec
 ```
 
 ## Tasks to Solve
-### 1. Add Like Resource and Endpoints:
-     - User must be able to like a recipe.
-     - User must be able to unlike a recipe.
-     - User must be able to get a list of recipes they have liked.
+### 1. Implement Likes:
+    - User must be able to like a recipe.
+    - User must be able to unlike a recipe.
+    - User must be able to get a list of recipes they have liked.
+    - Likes count need to be display on recipe index page.
 ### 2. Add Stats for Recipes Grouped by Week/Month:
-    Add a way to get stats (count, total likes) for user/author number of recipes grouped by 
+    Add a way to get stats (recipes count and total likes) for author recipes grouped by 
     - category
     - week/month of creation.
-### 3. Add Filtering by Category:
-    - Add a way to filter recipies by category.
-    - Consider performance with a large number of recipies.
+### 3. Add Featured Recipes:
+    Add an endpoint for authors to mark and unmark their recipes as "featured" with constraints:
+    - up to 3 featured recipes at one time
+    - the recipe is in the top 10 by likes count for the author
 
 ## Existing Endpoints
 * GET /recipes
