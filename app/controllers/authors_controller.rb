@@ -8,4 +8,15 @@ class AuthorsController < ApplicationController
     author = AuthorResource.find(params)
     respond_with(author)
   end
+
+  def statistics
+    group_by = params[:group_by] || 'category'
+    author_id = params[:id]
+    statistics = ::Authors::StatisticsService.new(author_id: author_id, group_by: group_by).call
+    response = AuthorStatisticsSerializer.new(statistics).serializable_hash
+
+    render json: response, status: :ok
+  rescue ::Authors::StatisticsService::ParamsError => e
+    render json: { errors: [{ message: e.message }] }, status: :bad_request
+  end
 end
