@@ -240,6 +240,94 @@
       }
     },
     {
+      "name": "LikeResource",
+      "type": "likes",
+      "graphql_entrypoint": "likes",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer_id",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "user_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "recipe_id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "user_id": {
+        },
+        "recipe_id": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer_id",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "user_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "recipe_id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "user": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "UserResource"
+        },
+        "recipe": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "RecipeResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
       "name": "RecipeResource",
       "type": "recipes",
       "graphql_entrypoint": "recipes",
@@ -280,6 +368,12 @@
           "readable": true,
           "writable": true,
           "description": null
+        },
+        "likes_count": {
+          "type": "integer",
+          "readable": true,
+          "writable": false,
+          "description": null
         }
       },
       "extra_attributes": {
@@ -296,6 +390,8 @@
         "preparation_time": {
         },
         "created_at": {
+        },
+        "likes_count": {
         }
       },
       "filters": {
@@ -377,6 +473,17 @@
             "lte"
           ]
         },
+        "likes_count": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
         "category_id": {
           "type": "integer_id",
           "operators": [
@@ -399,6 +506,145 @@
           "type": "many_to_many",
           "description": null,
           "resource": "CategoryResource"
+        },
+        "likes": {
+          "type": "has_many",
+          "description": null,
+          "resource": "LikeResource"
+        }
+      },
+      "stats": {
+        "total": [
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "UserResource",
+      "type": "users",
+      "graphql_entrypoint": "users",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "integer",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "nickname": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "token": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": true,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "nickname": {
+        },
+        "token": {
+        },
+        "created_at": {
+        },
+        "updated_at": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "integer",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "nickname": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "token": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "created_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "author": {
+          "type": "has_one",
+          "description": null,
+          "resource": "AuthorResource"
+        },
+        "likes": {
+          "type": "has_many",
+          "description": null,
+          "resource": "LikeResource"
         }
       },
       "stats": {
@@ -426,6 +672,22 @@
         }
       }
     },
+    "/api/v1/likes": {
+      "actions": {
+        "index": {
+          "resource": "LikeResource"
+        },
+        "show": {
+          "resource": "LikeResource"
+        },
+        "create": {
+          "resource": "LikeResource"
+        },
+        "destroy": {
+          "resource": "LikeResource"
+        }
+      }
+    },
     "/api/v1/recipes": {
       "actions": {
         "index": {
@@ -433,6 +695,13 @@
         },
         "show": {
           "resource": "RecipeResource"
+        }
+      }
+    },
+    "/api/v1/users": {
+      "actions": {
+        "show": {
+          "resource": "UserResource"
         }
       }
     }

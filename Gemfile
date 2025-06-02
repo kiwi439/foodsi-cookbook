@@ -51,6 +51,7 @@ gem "graphiti-rails"
 gem "vandal_ui"
 gem "kaminari", "~> 1.1"
 gem "responders", "~> 3.0"
+gem 'jsonapi-serializer'
 
 group :development, :test do
   gem "rspec-rails", "~> 4.0.0beta2"
@@ -61,4 +62,6 @@ end
 
 group :test do
   gem "database_cleaner", "~> 1.7"
+  gem 'shoulda-matchers', '~> 6.0'
+  gem 'timecop', require: false
 end
